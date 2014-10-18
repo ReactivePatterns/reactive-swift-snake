@@ -1,0 +1,397 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BD6A00EA19EE18BF00769816 /* ArrayDeque.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00DA19EE18BF00769816 /* ArrayDeque.swift */; };
+		BD6A00EB19EE18BF00769816 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00DB19EE18BF00769816 /* Box.swift */; };
+		BD6A00EC19EE18BF00769816 /* combinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00DC19EE18BF00769816 /* combinators.swift */; };
+		BD6A00ED19EE18BF00769816 /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00DD19EE18BF00769816 /* Either.swift */; };
+		BD6A00EE19EE18BF00769816 /* fake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00DE19EE18BF00769816 /* fake.swift */; };
+		BD6A00EF19EE18BF00769816 /* gcd.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00DF19EE18BF00769816 /* gcd.swift */; };
+		BD6A00F019EE18BF00769816 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6A00E019EE18BF00769816 /* Info.plist */; };
+		BD6A00F119EE18BF00769816 /* Monad.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E119EE18BF00769816 /* Monad.swift */; };
+		BD6A00F219EE18BF00769816 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E319EE18BF00769816 /* Scheduler.swift */; };
+		BD6A00F319EE18BF00769816 /* SeqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E419EE18BF00769816 /* SeqView.swift */; };
+		BD6A00F419EE18BF00769816 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E519EE18BF00769816 /* SetView.swift */; };
+		BD6A00F519EE18BF00769816 /* SortedSeqView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E619EE18BF00769816 /* SortedSeqView.swift */; };
+		BD6A00F619EE18BF00769816 /* SortedSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E719EE18BF00769816 /* SortedSetView.swift */; };
+		BD6A00F719EE18BF00769816 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E819EE18BF00769816 /* Stream.swift */; };
+		BD6A00F819EE18BF00769816 /* Subject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A00E919EE18BF00769816 /* Subject.swift */; };
+		BD6A010B19F2D8B700769816 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010319F2D8B700769816 /* AppDelegate.swift */; };
+		BD6A010C19F2D8B700769816 /* Apple.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010419F2D8B700769816 /* Apple.swift */; };
+		BD6A010D19F2D8B700769816 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010519F2D8B700769816 /* Game.swift */; };
+		BD6A010E19F2D8B700769816 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010619F2D8B700769816 /* GameView.swift */; };
+		BD6A010F19F2D8B700769816 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010719F2D8B700769816 /* Shared.swift */; };
+		BD6A011019F2D8B700769816 /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010819F2D8B700769816 /* Snake.swift */; };
+		BD6A011119F2D8B700769816 /* StateSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010919F2D8B700769816 /* StateSubject.swift */; };
+		BD6A011219F2D8B700769816 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010A19F2D8B700769816 /* ViewController.swift */; };
+		BD6A011A19F2DE1600769816 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6A011419F2D8E600769816 /* Info.plist */; };
+		BD6A011B19F2DE2E00769816 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD6A011619F2DBCD00769816 /* Main.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BD6A00DA19EE18BF00769816 /* ArrayDeque.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayDeque.swift; sourceTree = "<group>"; };
+		BD6A00DB19EE18BF00769816 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		BD6A00DC19EE18BF00769816 /* combinators.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = combinators.swift; sourceTree = "<group>"; };
+		BD6A00DD19EE18BF00769816 /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
+		BD6A00DE19EE18BF00769816 /* fake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = fake.swift; sourceTree = "<group>"; };
+		BD6A00DF19EE18BF00769816 /* gcd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gcd.swift; sourceTree = "<group>"; };
+		BD6A00E019EE18BF00769816 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BD6A00E119EE18BF00769816 /* Monad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Monad.swift; sourceTree = "<group>"; };
+		BD6A00E219EE18BF00769816 /* ReactiveSwift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReactiveSwift.h; sourceTree = "<group>"; };
+		BD6A00E319EE18BF00769816 /* Scheduler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		BD6A00E419EE18BF00769816 /* SeqView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeqView.swift; sourceTree = "<group>"; };
+		BD6A00E519EE18BF00769816 /* SetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
+		BD6A00E619EE18BF00769816 /* SortedSeqView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedSeqView.swift; sourceTree = "<group>"; };
+		BD6A00E719EE18BF00769816 /* SortedSetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortedSetView.swift; sourceTree = "<group>"; };
+		BD6A00E819EE18BF00769816 /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		BD6A00E919EE18BF00769816 /* Subject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subject.swift; sourceTree = "<group>"; };
+		BD6A010319F2D8B700769816 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ReactiveSnake/AppDelegate.swift; sourceTree = "<group>"; };
+		BD6A010419F2D8B700769816 /* Apple.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Apple.swift; path = ReactiveSnake/Apple.swift; sourceTree = "<group>"; };
+		BD6A010519F2D8B700769816 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Game.swift; path = ReactiveSnake/Game.swift; sourceTree = "<group>"; };
+		BD6A010619F2D8B700769816 /* GameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameView.swift; path = ReactiveSnake/GameView.swift; sourceTree = "<group>"; };
+		BD6A010719F2D8B700769816 /* Shared.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Shared.swift; path = ReactiveSnake/Shared.swift; sourceTree = "<group>"; };
+		BD6A010819F2D8B700769816 /* Snake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Snake.swift; path = ReactiveSnake/Snake.swift; sourceTree = "<group>"; };
+		BD6A010919F2D8B700769816 /* StateSubject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StateSubject.swift; path = ReactiveSnake/StateSubject.swift; sourceTree = "<group>"; };
+		BD6A010A19F2D8B700769816 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ReactiveSnake/ViewController.swift; sourceTree = "<group>"; };
+		BD6A011419F2D8E600769816 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ReactiveSnake/Info.plist; sourceTree = "<group>"; };
+		BD6A011719F2DBCE00769816 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ReactiveSnake/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D4F3B140193F777800D11DE2 /* ReactiveSnake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReactiveSnake.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D4F3B13D193F777800D11DE2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BD6A007819EE07AE00769816 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BD6A00D919EE18BF00769816 /* ReactiveSwift */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BD6A00D919EE18BF00769816 /* ReactiveSwift */ = {
+			isa = PBXGroup;
+			children = (
+				BD6A00DA19EE18BF00769816 /* ArrayDeque.swift */,
+				BD6A00DB19EE18BF00769816 /* Box.swift */,
+				BD6A00DC19EE18BF00769816 /* combinators.swift */,
+				BD6A00DD19EE18BF00769816 /* Either.swift */,
+				BD6A00DE19EE18BF00769816 /* fake.swift */,
+				BD6A00DF19EE18BF00769816 /* gcd.swift */,
+				BD6A00E019EE18BF00769816 /* Info.plist */,
+				BD6A00E119EE18BF00769816 /* Monad.swift */,
+				BD6A00E219EE18BF00769816 /* ReactiveSwift.h */,
+				BD6A00E319EE18BF00769816 /* Scheduler.swift */,
+				BD6A00E419EE18BF00769816 /* SeqView.swift */,
+				BD6A00E519EE18BF00769816 /* SetView.swift */,
+				BD6A00E619EE18BF00769816 /* SortedSeqView.swift */,
+				BD6A00E719EE18BF00769816 /* SortedSetView.swift */,
+				BD6A00E819EE18BF00769816 /* Stream.swift */,
+				BD6A00E919EE18BF00769816 /* Subject.swift */,
+			);
+			path = ReactiveSwift;
+			sourceTree = "<group>";
+		};
+		BD6A010219F2D89500769816 /* ReactiveSnake */ = {
+			isa = PBXGroup;
+			children = (
+				BD6A010319F2D8B700769816 /* AppDelegate.swift */,
+				BD6A010419F2D8B700769816 /* Apple.swift */,
+				BD6A010519F2D8B700769816 /* Game.swift */,
+				BD6A010619F2D8B700769816 /* GameView.swift */,
+				BD6A010719F2D8B700769816 /* Shared.swift */,
+				BD6A010819F2D8B700769816 /* Snake.swift */,
+				BD6A010919F2D8B700769816 /* StateSubject.swift */,
+				BD6A010A19F2D8B700769816 /* ViewController.swift */,
+			);
+			name = ReactiveSnake;
+			sourceTree = "<group>";
+		};
+		BD6A011319F2D8C400769816 /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				BD6A011619F2DBCD00769816 /* Main.storyboard */,
+				BD6A011419F2D8E600769816 /* Info.plist */,
+			);
+			name = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		D4F3B137193F777800D11DE2 = {
+			isa = PBXGroup;
+			children = (
+				BD6A010219F2D89500769816 /* ReactiveSnake */,
+				BD6A011319F2D8C400769816 /* SupportingFiles */,
+				BD6A007819EE07AE00769816 /* Frameworks */,
+				D4F3B141193F777800D11DE2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D4F3B141193F777800D11DE2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D4F3B140193F777800D11DE2 /* ReactiveSnake.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D4F3B13F193F777800D11DE2 /* ReactiveSnake */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D4F3B15C193F777800D11DE2 /* Build configuration list for PBXNativeTarget "ReactiveSnake" */;
+			buildPhases = (
+				D4F3B13C193F777800D11DE2 /* Sources */,
+				D4F3B13D193F777800D11DE2 /* Frameworks */,
+				D4F3B13E193F777800D11DE2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ReactiveSnake;
+			productName = SwiftSnake;
+			productReference = D4F3B140193F777800D11DE2 /* ReactiveSnake.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D4F3B138193F777800D11DE2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "Stan Lea";
+				TargetAttributes = {
+					D4F3B13F193F777800D11DE2 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+				};
+			};
+			buildConfigurationList = D4F3B13B193F777800D11DE2 /* Build configuration list for PBXProject "ReactiveSnake" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D4F3B137193F777800D11DE2;
+			productRefGroup = D4F3B141193F777800D11DE2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D4F3B13F193F777800D11DE2 /* ReactiveSnake */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D4F3B13E193F777800D11DE2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD6A011B19F2DE2E00769816 /* Main.storyboard in Resources */,
+				BD6A011A19F2DE1600769816 /* Info.plist in Resources */,
+				BD6A00F019EE18BF00769816 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D4F3B13C193F777800D11DE2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD6A00F219EE18BF00769816 /* Scheduler.swift in Sources */,
+				BD6A00F119EE18BF00769816 /* Monad.swift in Sources */,
+				BD6A00F519EE18BF00769816 /* SortedSeqView.swift in Sources */,
+				BD6A010B19F2D8B700769816 /* AppDelegate.swift in Sources */,
+				BD6A011219F2D8B700769816 /* ViewController.swift in Sources */,
+				BD6A010E19F2D8B700769816 /* GameView.swift in Sources */,
+				BD6A010F19F2D8B700769816 /* Shared.swift in Sources */,
+				BD6A00EB19EE18BF00769816 /* Box.swift in Sources */,
+				BD6A00F619EE18BF00769816 /* SortedSetView.swift in Sources */,
+				BD6A00F719EE18BF00769816 /* Stream.swift in Sources */,
+				BD6A011119F2D8B700769816 /* StateSubject.swift in Sources */,
+				BD6A00F819EE18BF00769816 /* Subject.swift in Sources */,
+				BD6A010C19F2D8B700769816 /* Apple.swift in Sources */,
+				BD6A00F319EE18BF00769816 /* SeqView.swift in Sources */,
+				BD6A011019F2D8B700769816 /* Snake.swift in Sources */,
+				BD6A00EC19EE18BF00769816 /* combinators.swift in Sources */,
+				BD6A00EA19EE18BF00769816 /* ArrayDeque.swift in Sources */,
+				BD6A00ED19EE18BF00769816 /* Either.swift in Sources */,
+				BD6A010D19F2D8B700769816 /* Game.swift in Sources */,
+				BD6A00EE19EE18BF00769816 /* fake.swift in Sources */,
+				BD6A00F419EE18BF00769816 /* SetView.swift in Sources */,
+				BD6A00EF19EE18BF00769816 /* gcd.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BD6A011619F2DBCD00769816 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BD6A011719F2DBCE00769816 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D4F3B15A193F777800D11DE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D4F3B15B193F777800D11DE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D4F3B15D193F777800D11DE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ReactiveSwift-ciufgjcxydntgxearjhpcgiwvbql/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/ReactiveSnake/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = ReactiveSnake;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		D4F3B15E193F777800D11DE2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(USER_LIBRARY_DIR)/Developer/Xcode/DerivedData/ReactiveSwift-ciufgjcxydntgxearjhpcgiwvbql/Build/Products/Debug-iphoneos",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/ReactiveSnake/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = ReactiveSnake;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D4F3B13B193F777800D11DE2 /* Build configuration list for PBXProject "ReactiveSnake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4F3B15A193F777800D11DE2 /* Debug */,
+				D4F3B15B193F777800D11DE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D4F3B15C193F777800D11DE2 /* Build configuration list for PBXNativeTarget "ReactiveSnake" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4F3B15D193F777800D11DE2 /* Debug */,
+				D4F3B15E193F777800D11DE2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D4F3B138193F777800D11DE2 /* Project object */;
+}
