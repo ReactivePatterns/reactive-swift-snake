@@ -30,7 +30,6 @@
 		BD6A011019F2D8B700769816 /* Snake.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010819F2D8B700769816 /* Snake.swift */; };
 		BD6A011119F2D8B700769816 /* StateSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010919F2D8B700769816 /* StateSubject.swift */; };
 		BD6A011219F2D8B700769816 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6A010A19F2D8B700769816 /* ViewController.swift */; };
-		BD6A011A19F2DE1600769816 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BD6A011419F2D8E600769816 /* Info.plist */; };
 		BD6A011B19F2DE2E00769816 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD6A011619F2DBCD00769816 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -206,7 +205,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD6A011B19F2DE2E00769816 /* Main.storyboard in Resources */,
-				BD6A011A19F2DE1600769816 /* Info.plist in Resources */,
 				BD6A00F019EE18BF00769816 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
