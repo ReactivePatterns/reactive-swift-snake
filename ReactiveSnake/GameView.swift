@@ -6,11 +6,9 @@ class GameView : UIView {
     var points:[Point]?
     var apple:Point?
 
-	required init?(coder aDecoder: NSCoder) {
+	required init(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		self.backgroundColor = UIColor.whiteColor()
-        
-        
 	}
 
 	override init(frame: CGRect) {
