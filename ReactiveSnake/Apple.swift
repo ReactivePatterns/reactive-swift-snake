@@ -9,8 +9,8 @@ public struct AppleState {
 }
 
 public class Apple: StateSubject {
-    typealias E = AppleEvent
-    typealias S = AppleState
+    public typealias E = AppleEvent
+    public typealias S = AppleState
     
     private let state = Subject<AppleState?>(nil)
     

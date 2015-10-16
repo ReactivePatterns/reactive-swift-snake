@@ -10,7 +10,7 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 
 		self.gameView = GameView(frame: self.view.bounds)
-		self.gameView!.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+		self.gameView!.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
 		self.view.insertSubview(self.gameView!, atIndex: 0)
 
 		for direction in [UISwipeGestureRecognizerDirection.Right,

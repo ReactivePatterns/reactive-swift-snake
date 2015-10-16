@@ -6,7 +6,7 @@ class GameView : UIView {
     var points:[Point]?
     var apple:Point?
 
-	required init(coder aDecoder: NSCoder) {
+	required init?(coder aDecoder: NSCoder) {
 		super.init(coder: aDecoder)
 		self.backgroundColor = UIColor.whiteColor()
         
@@ -23,8 +23,8 @@ class GameView : UIView {
 			if worldSize?.width <= 0 || worldSize?.height <= 0 {
 				return
 			}
-			var w = Int(Float(self.bounds.size.width) / Float(worldSize!.width))
-			var h = Int(Float(self.bounds.size.height) / Float(worldSize!.height))
+			let w = Int(Float(self.bounds.size.width) / Float(worldSize!.width))
+			let h = Int(Float(self.bounds.size.height) / Float(worldSize!.height))
 
 			UIColor.blackColor().set()
 			for point in points! {

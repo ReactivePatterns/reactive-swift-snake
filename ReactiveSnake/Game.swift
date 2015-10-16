@@ -66,10 +66,10 @@ public class Game: NSObject, StateSubject {
             if let snakeState = e.value {
                 self.apple = Apple(worldSize: self.worldSize!, pointsToAvoid: snakeState!.snake)
                 
-                Streams.combineLatest(self.snake!.stream(), self.apple!.stream()).subscribe {
+                combineLatest(self.snake!.stream(), self.apple!.stream()).subscribe {
                     (e: Packet<(SnakeState?, AppleState?)>) in
                     var snakeState = e.value?.0
-                    var appleState = e.value?.1
+                    let appleState = e.value?.1
                     
                     if snakeState!.dead == true {
                         self.state.value = GameState(worldSize: self.worldSize!, snake: snakeState!.snake, apple:appleState!.location, end: true)                    }

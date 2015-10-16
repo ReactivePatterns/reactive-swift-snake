@@ -8,7 +8,7 @@ public class GCDQueue: PID {
     
     public init(_ raw: dispatch_queue_t) { self.raw = raw }
     
-    public override func equals(o: PID) -> Bool { return (o as? GCDQueue)?.raw == raw }
+    public override func equals(o: PID) -> Bool { return (o as? GCDQueue)?.raw === raw }
     
 }
 
@@ -53,9 +53,7 @@ public class GCDExecutionContext: ExecutionContext {
 }
 
 public extension Stream {
-    
-    public func open() -> Channel<A> { return open(GCDExecutionContext()) }
-    
+
     public func isolated<B>(queue: dispatch_queue_t, _ f: Stream<A> -> Stream<B>) -> Stream<B> {
         return isolated([.Actor(GCDQueue(queue))], f)
     }
@@ -81,7 +79,7 @@ private struct GCDExecutionContextConfig {
                 o.queue = pid
                 
             case .Actor(let pid):
-                println("Unsupported PID type :: `\(pid)`")
+                print("Unsupported PID type :: `\(pid)`")
                 abort()
             }
         }

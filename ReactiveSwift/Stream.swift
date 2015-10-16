@@ -3,7 +3,7 @@
 import Foundation
 
 /// A composable object which represents an event stream where multiple events are flowing.
-public class Stream<A> {
+public class Stream<A>: Streams {
 
     public func subscribe(f: Packet<A> -> ()) { return open().subscribe(f) }
 
@@ -14,6 +14,9 @@ public class Stream<A> {
     public func open(callerContext: ExecutionContext) -> Channel<A> {
         return open(callerContext) { _ in }
     }
+    
+    public func open() -> Channel<A> { return open(GCDExecutionContext()) }
+
 }
 
 /// A subscription of an event stream.
@@ -28,13 +31,13 @@ public class Channel<A> {
 /// An event.
 public enum Packet<A> {
 
-    case Done()
+    case Done
     case Fail(NSError)
-    case Next(Box <A>)
+    case Next(A)
 
     public var value: A? {
         switch self {
-        case .Next(let x): return +x
+        case .Next(let e): return e
         default:
             return nil
         }
@@ -48,11 +51,27 @@ public enum Packet<A> {
         }
     }
     
-    public func map<B>(f: A -> B) -> Packet<B> {
+    public func flatMap<B>(@noescape f: A -> Packet<B>) -> Packet<B> {
+        return fold(f
+            , fail: {.Fail($0)}
+            , done: {.Done})
+    }
+    
+    public func map<B>(@noescape f: A -> B) -> Packet<B> {
+        return fold({.Next(f($0))}
+            , fail: {.Fail($0)}
+            , done: {.Done})
+    }
+    
+    public func fold<X>(@noescape next: A -> X
+        , @noescape fail: NSError -> X
+        , @noescape done:    Void -> X) -> X
+    {
         switch self {
-        case let .Next(x): return .Next(x.map(f))
-        case let .Fail(x): return .Fail(x)
-        case let .Done( ): return .Done( )
+        case let .Next(e): return next(e)
+        case let .Fail(e): return fail(e)
+        default:
+            return done()
         }
     }
     
@@ -60,9 +79,19 @@ public enum Packet<A> {
 
 }
 
+public func == <A: Equatable>(lhs: Packet<A>, rhs: Packet<A>) -> Bool {
+    switch ((lhs, rhs)) {
+        case let (.Next(a), .Next(b)): return a == b
+        case let (.Fail(a), .Fail(b)): return a == b
+        case (.Done, .Done): return true
+        default:
+            return false
+    }
+}
+
 public extension Stream {
     
-    public func merge<B>(f: () -> A -> Stream<B>) -> Stream<B> { return merge(-1, f) }
+    public func merge<B>(f: () -> A -> Stream<B>) -> Stream<B> { return merge(Int.max, f) }
     
     public func merge<B>(count: Int, _ f: () -> A -> Stream<B>) -> Stream<B> {
         return Merge(self, f, count)
@@ -72,11 +101,11 @@ public extension Stream {
     
     public func outerBind<B>(f: () -> A -> Stream<B>) -> Stream<B> {
         return merge {
-            var last: Dispatcher<B>? = nil
+            var last: Dispatcher<B>?
             let bind = f()
             return { e in
-                return Streams.pipe([.AllowSync]) {
-                    last?.emitIfOpen(.Done())
+                return pipe([.AllowSync]) {
+                    last?.emitIfOpen(.Done)
                     last = $0
                     return bind(e)
                 }
@@ -86,15 +115,15 @@ public extension Stream {
     
     public func flatMap<B>(f: A -> Stream<B>) -> Stream<B> { return innerBind({f}) }
     
-    public func map<B>(f: A -> B) -> Stream<B> { return flatMap { Streams.pure(f($0)) } }
+    public func map<B>(f: A -> B) -> Stream<B> { return flatMap { .pure(f($0)) } }
 
     public func filter(predicate: A -> Bool) -> Stream<A> {
-        return flatMap { predicate($0) ? Streams.pure($0): Streams.done() }
+        return flatMap { predicate($0) ? .pure($0): .done() }
     }
 
     public func pack() -> Stream<Packet<A>> {
         return Streams.source([.AllowSync]) { chan in
-            var base: Channel<A>? = nil
+            var base: Channel<A>?
             chan.setCloseHandler {
                 base?.close()
                 base = nil
@@ -102,7 +131,7 @@ public extension Stream {
             self.open(chan.calleeContext) {
                 base = $0
                 base!.subscribe {
-                    chan.emitIfOpen(.Next(Box($0)))
+                    chan.emitIfOpen(.Next($0))
                 }
             }
         }
@@ -110,7 +139,7 @@ public extension Stream {
 
     public func onClose(action: () -> ()) -> Stream<A> {
         return Streams.source([.AllowSync]) { chan in
-            var base: Channel<A>? = nil
+            var base: Channel<A>?
             chan.setCloseHandler {
                 chan.callerContext.schedule(chan.calleeContext, 0, action)
                 base?.close()
@@ -133,13 +162,15 @@ public extension Stream {
     public func isolated<B>(f: Stream<A> -> Stream<B>) -> Stream<B> { return isolated([.Isolated], f) }
     
     public func isolated<B>(property: [ExecutionProperty], _ f: Stream<A> -> Stream<B>) -> Stream<B> {
-        return flatMap { e in Streams.pipe(property) { _ in f(Streams.pure(e)) } }
+        return flatMap { e in
+            pipe(property) { _ in f(.pure(e)) }
+        }
     }
 
     public func zipWith<B>(value: B) -> Stream<(A, B)> { return map { ($0, value) } }
     
     public func zipWithContext() -> Stream<(A, ExecutionContext)> {
-        return Streams.pipe([.AllowSync]) { self.zipWith($0.calleeContext) }
+        return pipe([.AllowSync]) { self.zipWith($0.calleeContext) }
     }
 
     // Carrying inside streams out of the outside stream causes to lose "stability of meaning" of stream.
@@ -156,15 +187,15 @@ public extension Stream {
                 base = $0
                 base!.subscribe { e in
                     switch e {
-                    case .Next(let x):
-                        let k = f(+x)
+                    case .Next(let e):
+                        let k = f( e )
                         var chan = map[k]
                         if (chan == nil) {
                             chan = ForeignSource()
                             map[k] = chan
-                            outer.emitIfOpen(.Next(Box(chan!)))
+                            outer.emitIfOpen(.Next(chan!))
                         }
-                        chan!.emitValue((k, x.raw))
+                        chan!.emitValue((k, e))
                     default:
                         for o in map.values { o.emit(e.nullify()) }
                         outer.emit(e.nullify())
@@ -172,6 +203,22 @@ public extension Stream {
                 }
             }
         }
+    }
+    
+    public func switchIf<B>(predicate: () -> A -> Bool
+        , during: A -> Stream<Packet<B>>
+        , follow: A -> Stream<Packet<B>>) -> Stream<B>
+    {
+        return unpack(innerBind {
+            let f = predicate()
+            var b = false
+            return { e in
+                if !b {
+                    b = f(e)
+                }
+                return ( b ? follow(e): during(e) )
+            }
+        })
     }
 
 }
@@ -182,7 +229,7 @@ public class Streams {
 
     public class func source<A>(f: Dispatcher<A> -> ()) -> Stream<A> { return source([], f) }
     
-    public class func source<A>(property: [ExecutionProperty], f: Dispatcher<A> -> ()) -> Stream<A> {
+    public class func source<A>(property: [ExecutionProperty], _ f: Dispatcher<A> -> ()) -> Stream<A> {
         return ClosureSource<A>(property, f)
     }
     
@@ -193,7 +240,7 @@ public class Streams {
     }
     
     public class func done<A>() -> Stream<A> {
-        return source([.AllowSync]) { $0.emit(.Done()) }
+        return source([.AllowSync]) { $0.emit(.Done) }
     }
     
     public class func fail<A>(error: NSError) -> Stream<A> {
@@ -202,11 +249,10 @@ public class Streams {
 
     public class func list<A>(a: [A]) -> Stream<A> {
         return source([.AllowSync]) { chan in
-            var i = 0
-            while i < a.count && !chan.isClosed {
-                chan.emitValue( a[i++] )
+            for var i = 0; i < a.count && !chan.isClosed; ++i {
+                chan.emitValue(a[i])
             }
-            chan.emitIfOpen(.Done())
+            chan.emitIfOpen(.Done)
         }
     }
     
@@ -214,8 +260,8 @@ public class Streams {
         return source(property) { $0.flush(f()) }
     }
     
-    public class func lazy<A>(f: @autoclosure () -> A) -> Stream<A> {
-        return source([]) { $0.flush(f()) }
+    public class func lazy<A>(f: () -> A) -> Stream<A> {
+        return source([.AllowSync]) { $0.flush(f()) }
     }
     
     public class func range<A: ForwardIndexType>(range: Range<A>) -> Stream<A> {
@@ -223,73 +269,73 @@ public class Streams {
             for e in range {
                 if !chan.isClosed { chan.emitValue(e) }
             }
-            chan.emitIfOpen(.Done())
+            chan.emitIfOpen(.Done)
         }
     }
 
     public class func args<A>(a: A...) -> Stream<A> { return list(a) }
 
-    public class func unpack<A>(s: Stream<Packet<A>>) -> Stream<A> {
-        return source([.AllowSync]) { chan in
-            var base: Channel<Packet<A>>? = nil
-            chan.setCloseHandler {
-                base?.close()
-                base = nil
-            }
-            s.open(chan.calleeContext) {
-                base = $0
-                base!.subscribe {
-                     chan.emitIfOpen($0 >>| { $0 })
-                }
-            }
-        }
-    }
-
-    public class func repeat<A>(value: A, _ delay: Double) -> Stream<A> {
+    public class func `repeat`<A>(value: A, _ delay: Double) -> Stream<A> {
         return Streams.source { chan in
             var holder: A? = value
             chan.setCloseHandler {
                 holder = nil
             }
-            repeatWhile(chan.calleeContext, delay) {
+            repeatWhile(chan.calleeContext, delay: delay) {
                 if let e = holder {
-                    chan.emitIfOpen(.Next(Box(e)))
+                    chan.emitIfOpen(.Next(e))
                 }
                 return !chan.isClosed
             }
         }
     }
-    
-    public class func merge<A>(a: Stream<Stream<A>>, _ count: Int = -1) -> Stream<A> {
-        return a.merge(count) {{ $0 }}
-    }
-    
-    public class func pipe<A>(property: [ExecutionProperty], _ f: Dispatcher<A> -> Stream<A>) -> Stream<A> {
-        return Streams.source(property) { chan in
-            var base: Channel<A>? = nil
-            chan.setCloseHandler {
-                base?.close()
-                base = nil
-            }
-            f(chan).open(chan.calleeContext) {
-                base = $0
-                base!.subscribe { chan.emitIfOpen($0) }
+
+}
+
+public func unpack<A>(s: Stream<Packet<A>>) -> Stream<A> {
+    return Streams.source([.AllowSync]) { chan in
+        var base: Channel<Packet<A>>?
+        chan.setCloseHandler {
+            base?.close()
+            base = nil
+        }
+        s.open(chan.calleeContext) {
+            base = $0
+            base!.subscribe {
+                chan.emitIfOpen($0 >>| { $0 })
             }
         }
     }
+}
 
+public func merge<A>(a: Stream<Stream<A>>, _ count: Int = Int.max) -> Stream<A> {
+    return a.merge(count) {{ $0 }}
+}
+
+private func pipe<A>(property: [ExecutionProperty], f: Dispatcher<A> -> Stream<A>) -> Stream<A> {
+    return Streams.source(property) { chan in
+        var base: Channel<A>?
+        chan.setCloseHandler {
+            base?.close()
+            base = nil
+        }
+        f(chan).open(chan.calleeContext) {
+            base = $0
+            base!.subscribe { chan.emitIfOpen($0) }
+        }
+    }
 }
 
 private func repeatWhile(context: ExecutionContext, delay: Double, f: () -> Bool) {
     context.schedule(nil, delay) {
-        if f() { repeatWhile(context, delay, f) }
+        if f() { repeatWhile(context, delay: delay, f: f) }
     }
 }
 
-// TODO It shall be separated into `Channel` and `Dispatcher` alone..
 /// An instance of this class emits events to `Channel` corresponding to itself.
 public class Dispatcher<A>: Channel<A> {
     
+    // TODO It shall be separated into `Channel` and `Dispatcher` alone..
     public let callerContext: ExecutionContext
     public let calleeContext: ExecutionContext
 
@@ -305,14 +351,13 @@ public class Dispatcher<A>: Channel<A> {
 
     public func flush(e: A) {
         emitValue(e)
-        emitIfOpen(.Done())
+        emitIfOpen(.Done)
     }
     
     public func emitValue(e: A) {
-        emit(.Next(Box(e)))
+        emit(.Next(e))
     }
 
-    // TODO emitAndWait: Cont<()>
     public func emit(e: Packet<A>) {
         assert(calleeOpen, "This channel was closed.")
         emitIfOpen(e)
@@ -384,6 +429,51 @@ public class Dispatcher<A>: Channel<A> {
 
 }
 
+public class ForeignSource<A>: Source<A> {
+    
+    private var channels = [Dispatcher<A>] ()
+    
+    deinit {
+        for chan in channels {
+            chan.calleeContext.schedule(nil, 0) {
+                chan.emitIfOpen(.Done)
+            }
+        }
+    }
+    
+    public override init() {}
+    
+    public final func emitValue(a: A) { emit(.Next(a)) }
+    
+    public final func emit(a: Packet<A>) {
+        // TODO close
+        for chan in channels {
+            chan.calleeContext.schedule(nil, 0) {
+                chan.emitIfOpen(a)
+            }
+        }
+    }
+    
+    override func invoke(chan: Dispatcher<A>) {
+        chan.setCloseHandler { [weak self] in
+            for i in 0 ..< (self?.channels.count ?? 0) { // TODO thread safe
+                if (self!.channels[i] === chan) {
+                    self!.channels.removeAtIndex(i)
+                    break
+                }
+            }
+        }
+        channels.append(chan)
+    }
+
+    override func isolate(callerContext: ExecutionContext) -> ExecutionContext {
+        return callerContext.requires([.AllowSync])
+    }
+    
+    public var subscribers: Int { return channels.count }
+    
+}
+
 class Source<A>: Stream<A> {
 
     override func open(callerContext: ExecutionContext, _ cont: Channel<A> -> ()) -> Channel<A> {
@@ -432,7 +522,7 @@ private final class Merge<A, B>: Source<B> {
     override func invoke(chan: Dispatcher<B>) {
         
         var alive = [Channel<B>]()
-        var base: Channel<A>? = nil
+        var base: Channel<A>?
         var next: (Packet<A> -> ())!
         chan.setCloseHandler {
             base?.close()
@@ -450,7 +540,7 @@ private final class Merge<A, B>: Source<B> {
                     alive.append(inner)
                     inner.subscribe { e in
                         switch e {
-                        case let .Next(_): chan.emitIfOpen(e)
+                        case let .Next(o): chan.emitIfOpen(.Next(o))
                         case let .Fail(x): chan.emitIfOpen(.Fail(x))
                             fallthrough
                         default:
@@ -469,7 +559,7 @@ private final class Merge<A, B>: Source<B> {
                 queue.push(e)
             }
             else {
-                chan.emitIfOpen(.Done())
+                chan.emitIfOpen(.Done)
             }
         }
         outer.open(chan.calleeContext) {

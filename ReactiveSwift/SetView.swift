@@ -6,20 +6,22 @@ public class SetView<E: Hashable>: SubjectSource<SetDiff<E>> {
     
     public init() {}
     
-    override public func firstValue() -> Box<UpdateItem> { return Box(SetDiff()) }
+    override public var firstValue: Box<UpdateDiff> { return Box(SetDiff()) }
     
     public subscript(i: Int) -> E? { return nil }
     
     public func map<F>(f: E -> F) -> Stream<SetView<F>> {
-        return Streams.pure(SetView<F>())
+        return .pure(SetView<F>())
     }
     
     public func map<F>(f: E -> F, _ context: ExecutionContext) -> SetView<F> {
         return SetView<F>()
     }
 
-    public func size() -> UInt { return 0 }
+    public var count: UInt { return 0 }
     
+    public var array: [E]  { return [] }
+
     public func compose() -> Stream<[E: ()]> { return unwrap.map { _ in undefined() } }
 
 }
@@ -28,10 +30,10 @@ public class SetCollection<E: Hashable>: SetView<E> {
     
     private var raw: [E: ()]
     
-    public init(a: [E] = []) { self.raw = newDictionary(a, ()) }
+    public init(a: [E] = []) { self.raw = newDictionary(a, value: ()) }
     
-    override public func firstValue() -> Box<UpdateItem> {
-        return Box(SetDiff<E>(Array(raw.keys)))
+    override public var firstValue: Box<UpdateDiff> {
+        return Box(SetDiff(Array(raw.keys)))
     }
     
     override public func merge(update: UpdateType) {
@@ -53,7 +55,7 @@ public class SetCollection<E: Hashable>: SetView<E> {
     public func insert(e: E, sender: AnyObject? = nil) { update(SetDiff([e], []), sender) }
     
     public func assign(a: [E], sender: AnyObject? = nil) {
-        let tmp = newDictionary(a, ())
+        let tmp = newDictionary(a, value: ())
         var delete = [E]()
         var insert = [E]()
         for e in tmp.keys { if !raw.containsKey(e) { insert.append(e) } }
@@ -61,7 +63,9 @@ public class SetCollection<E: Hashable>: SetView<E> {
         update(SetDiff(insert, delete))
     }
     
-    override public func size() -> UInt { return UInt(raw.count) }
+    override public var count: UInt { return UInt(raw.count) }
+    
+    override public var array: [E]  { return Array(raw.keys) }
     
     override public func compose() -> Stream<[E: ()]> {
         return unwrap.map { [unowned self] _ in self.raw }
